@@ -3,21 +3,7 @@ var router = express.Router();
 const Accessory = require("../models/accessory");
 const Cube = require("../models/cube");
 
-// router.get('/:uid', function (req, res, next) {
-//   let id = req.params.uid; //5c39f1851ab3b24f5c03e183
-//   console.log(id);
 
-//   Cube.findOne({
-//       _id: id
-//     }).populate('accessories')
-//     .then((thisCube) => {
-//       res.render('attachAccessory', {
-//         title: "Attach Accessory",
-//         cube: thisCube,
-//         accessories: thisCube.accessories
-//       });
-//     });
-// });
 /* GET details page for selected cube. */
 router.get('/:uid', function (req, res, next) {
   let id = req.params.uid;
@@ -52,44 +38,44 @@ router.get('/:uid', function (req, res, next) {
   
 
 /*POST new Accessory */
-// router.post("/:uid", function (req, res, next) {
-//   let selectedCubeId = req.params.uid;
-//   console.log(selectedCubeId);
-//   let selectedAccId = req.body.accessory;
+router.post("/:uid", function (req, res, next) {
+  let selectedCubeId = req.params.uid;
+  console.log(selectedCubeId);
+  let selectedAccId = req.body.accessory;
 
-//   Cube.findOneAndUpdate({
-//       _id: selectedCubeId
-//     }, {
-//       $push: {
-//         "accessories": selectedAccId
-//       }
-//     }, {
-//       upsert: true
-//     },
-//     function (err) {
-//       if (err) {
-//         console.log(err);
-//       }
-//     }
-//   );
+  Cube.findOneAndUpdate({
+      _id: selectedCubeId
+    }, {
+      $push: {
+        "accessories": selectedAccId
+      }
+    }, {
+      upsert: true
+    },
+    function (err) {
+      if (err) {
+        console.log(err);
+      }
+    }
+  );
 
-//   Accessory.findOneAndUpdate({
-//       _id: selectedAccId
-//     }, {
-//       $push: {
-//         "cubes": selectedCubeId
-//       }
-//     }, {
-//       upsert: true
-//     },
-//     function (err) {
-//       if (err) {
-//         console.log(err);
-//       }
-//     }
-//   );
+  Accessory.findOneAndUpdate({
+      _id: selectedAccId
+    }, {
+      $push: {
+        "cubes": selectedCubeId
+      }
+    }, {
+      upsert: true
+    },
+    function (err) {
+      if (err) {
+        console.log(err);
+      }
+    }
+  );
 
-//   res.redirect(`/details/${selectedCubeId}`);
-// });
+  res.redirect(`/details/${selectedCubeId}`);
+});
   
   module.exports = router;

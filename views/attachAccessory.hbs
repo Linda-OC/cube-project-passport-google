@@ -3,19 +3,19 @@
         <h2>{{cube.name}}</h2>
         <img class="cube" src={{cube.imageUrl}}>
         <form action="/attach-accessory/{{cube.id}}" method="POST">
-          {{#if dropDownAccessories}}
-          {{!-- <label for="accessory">Accessories</label>
+          {{!-- {{#if dropDownAccessories}} --}}
+          <label for="accessory">Accessories</label>
           <select id="accessory" name="accessory">
             {{#each dropDownAccessories}}
             <option value={{id}}>{{name}}</option>
             {{/each}}
           </select>
-          <input type="submit" value="Attach"> --}}
-            {{#else}}
+          <input type="submit" value="Attach To Cube">
+            {{!-- {{#else}}
             <div class="details">
               <h2 align="center">No More Accessories Left To Attach!</h2>
             </div>
-            {{/if}}
+            {{/if}} --}}
         </form>
 
         <h3 class="italic">This cube has all available accessories so far or there is no available at all...

@@ -14,6 +14,9 @@ const detailsRouter = require('./routes/details');
 const notFound404Router = require('./routes/404');
 const createAccessoryRouter = require('./routes/createAccessory');
 const attachAccessoryRouter = require('./routes/attachAccessory');
+const editCubeRouter = require('./routes/editCube');
+const deleteCubeRouter = require('./routes/deleteCube');
+
 
 
 var app = express();
@@ -34,6 +37,9 @@ mongoose.connect(process.env.DB_URI, {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials("./views/partials");
+hbs.registerHelper("isEqual", (a, b) => {
+  return a === b;
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -48,7 +54,8 @@ app.use('/create', createRouter);
 app.use('/details', detailsRouter);
 app.use('/createAccessory', createAccessoryRouter);
 app.use('/attach-accessory', attachAccessoryRouter);
-
+app.use('/edit-cube', editCubeRouter);
+app.use('/delete-cube', deleteCubeRouter);
 
 
 // catch 404 and forward to error handler
