@@ -8,7 +8,7 @@ router.get('/:uid', function (req, res, next) {
 
     Cube.findOne({_id: id }) 
         .then((thisCube) => {
-            res.render('deleteCube', {
+            res.render('deleteCubePage', {
                 title: 'Delete Cube',
                 cube: thisCube
             });
@@ -24,6 +24,7 @@ router.post("/:uid", function (req, res, next) {
         err => { if (err) { console.log(err);}}
     );
     res.redirect('/');
+
 
 });
 

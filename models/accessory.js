@@ -24,18 +24,6 @@ const accessorySchema = new Schema({
 });
 
 
-// username: {
-//     validate: {
-//         validator: function (v) {
-//             return /^[\w\d]*$/.test(v);
-//         },
-//         message: `must be only letters or numbers!`
-//     },
-// }
-// minlength: [5, 'must be 5 or more letters!'],
-//     required: [true, 'is required!']
-
-
 
 const Accessory = mongoose.model('Accessory', accessorySchema);
 
