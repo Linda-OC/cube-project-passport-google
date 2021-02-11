@@ -4,9 +4,9 @@ const Accessory = require('../models/accessory');
 
 /*GET createAccessory page */
 router.get('/', function (req, res, next) {
-    res.render('createAccessory', {
-            title: 'Create Accessory'
-        })
+    res.render('createAccessoryPage', {
+        title: 'Create Accessory'
+    });
 });
 
 /*POST new Accessory */

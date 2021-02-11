@@ -25,7 +25,7 @@ router.get('/:uid', function (req, res, next) {
       Accessory.find()
         .then((foundAccessories) => {
           let dropDownAccessoriesArr = foundAccessories.filter(accessory => !idArr.includes(accessory._id))
-          res.render('attachAccessory', {
+          res.render('attachAccessoryPage', {
             title: 'Attach Accessory',
             cube: thisCube,
             dropDownAccessories: dropDownAccessoriesArr

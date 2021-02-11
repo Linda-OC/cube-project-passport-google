@@ -8,7 +8,7 @@ router.get('/:uid', function (req, res, next) {
 
     Cube.findOne({ _id: id}).populate('accessories') //get access to all accessories attach to this cube
         .then((thisCube) => {
-            res.render('editCube', {
+            res.render('editCubePage', {
                 title: 'Edit Cube ',
                 cube: thisCube
             });
@@ -20,10 +20,19 @@ router.post("/:uid", function (req, res, next) {
     let selectedCubeId = req.params.uid;
 
     Cube.findOneAndUpdate(
-        { _id: selectedCubeId },
-        { $push: { "accessories": selectedAccId } },
+        { _id: selectedCubeId } ,
+        {
+            name: req.body.name,
+            description: req.body.description,
+            imageUrl: req.body.imageUrl,
+            difficulty: req.body.difficultyLevel
+        },
         { upsert: true },
-        err => { if (err) {console.log(err);}}
+        (err) => {
+            if (err) {
+                console.log(err);
+            }
+        }
     );
 
     res.redirect(`/details/${selectedCubeId}`);

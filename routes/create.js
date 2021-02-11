@@ -4,7 +4,7 @@ const Cube = require('../models/cube');
 
 /*GET create page */
 router.get('/', function (req, res, next) {
-    res.render('create', { title: 'Create' });
+    res.render('createPage', { title: 'Create' });
 });
 
 /*POST new Cube */
