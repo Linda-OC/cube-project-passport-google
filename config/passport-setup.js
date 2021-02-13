@@ -23,4 +23,3 @@ passport.use(
         }
     )
 );
-
