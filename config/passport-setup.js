@@ -7,10 +7,9 @@ const User = require('../models/user');
 //passport session setup
 passport.use(
     new GoogleStrategy({
-            redirectURI: process.env.AUTH_REDIRECT_URI,
-            uri: process.env.AUTH_URI,
-            clientID: process.env.AUTH_CLIENT_ID,
-            clientSecret: process.env.AUTH_CLIENT_SECRET
+            callbackURL: '/auth/google/redirect',
+            clientID: keys.google.clientID,
+            clientSecret: keys.google.clientSecret
         }, (accessToken,refreshToken,profile,done) => {
             //passport callback function
             console.log('passport callback function fired');
@@ -24,4 +23,3 @@ passport.use(
         }
     )
 );
-
