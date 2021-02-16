@@ -3,13 +3,15 @@ var router = express.Router();
 const Cube = require('../models/cube');
 
 /* GET home page */
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
     Cube.find()
         .then((cubes) => {
             res.render('indexPage', {
-                title: 'Browser',
-                cube: cubes,
-            });
+                    user: req.user,
+                    title: 'Browse Cubes',
+                    cubes: cubes
+                });
+            //console.log("#########index.js cubes:", cubes);
         });
 });
 

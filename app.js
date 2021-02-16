@@ -5,25 +5,29 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const hbs = require('hbs');
 const mongoose = require('mongoose');
-const passport = require("passport");
+const passport = require('passport');
 const passportSetup = require('./config/passport-setup');
 require('dotenv').config();
+const keys = require('./config/keys');
+const cookieSession = require('cookie-session');
 
 // Routers
-var indexRouter = require('./routes/index');
-const aboutRouter = require('./routes/about');
-const createRouter = require('./routes/create');
-const detailsRouter = require('./routes/details');
 const notFound404Router = require('./routes/404');
-const createAccessoryRouter = require('./routes/createAccessory');
+const aboutRouter = require('./routes/about');
 const attachAccessoryRouter = require('./routes/attachAccessory');
-const editCubeRouter = require('./routes/editCube');
+const authRouter = require('./routes/auth');
+const createRouter = require('./routes/create');
+const createAccessoryRouter = require('./routes/createAccessory');
 const deleteCubeRouter = require('./routes/deleteCube');
+const detailsRouter = require('./routes/details');
+const editCubeRouter = require('./routes/editCube');
+var indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
-const logoutRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
+const profileRouter = require('./routes/profile');
 const registerRouter = require('./routes/register');
 const searchRouter = require('./routes/search');
-const authRouter = require('./routes/auth');
+
 
 var app = express();
 
@@ -47,30 +51,39 @@ hbs.registerHelper("isEqual", (a, b) => { return a === b;});
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 
+//set cookie session maxAge to be 1 day in milliseconds and encrypt keys with a cookie key (put in keys.js in session key)
+app.use(cookieSession({//time needs to be in milliseconds
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [keys.session.cookieKey]
+}));
 
 
-// Initialize Passport!  Also use passport.session() middleware, to support persistent login sessions (recommended).
+// Initialize Passport  
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/', indexRouter);
+
+
 app.use('/404', notFound404Router);
 app.use('/about', aboutRouter);
-app.use('/create', createRouter);
-app.use('/details', detailsRouter);
-app.use('/create-accessory', createAccessoryRouter);
 app.use('/attach-accessory', attachAccessoryRouter);
-app.use('/edit-cube', editCubeRouter);
+app.use('/auth', authRouter);
+app.use('/create', createRouter);
+app.use('/create-accessory', createAccessoryRouter);
 app.use('/delete-cube', deleteCubeRouter);
+app.use('/details', detailsRouter);
+app.use('/edit-cube', editCubeRouter);
+app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
+app.use('/profile', profileRouter);
 app.use('/register', registerRouter);
 app.use('/search', searchRouter);
-app.use('/logout', logoutRouter);
-app.use('/auth', authRouter);
+
 
 
 

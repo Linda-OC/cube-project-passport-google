@@ -6,3 +6,6 @@ pass
 
 /.env
 .env
+
+/config/keys.js
+
